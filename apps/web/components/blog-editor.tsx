@@ -21,9 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/utils";
-import { Editor, Extension } from "@tiptap/core";
-import { useCallback } from "react";
-import debounce from "lodash.debounce";
+import { Extension } from "@tiptap/core";
 
 // Add this custom extension before the BlogEditor component
 const CustomKeymap = Extension.create({
@@ -44,19 +42,6 @@ export function BlogEditor({ blogId }: { blogId: string }) {
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const titleRef = useRef<HTMLInputElement>(null);
 
-  const debouncedUpdate = useCallback(
-    debounce((editor: Editor, blog: Blog) => {
-      const updatedBlog = {
-        ...blog,
-        content: editor.getHTML(),
-        updatedAt: new Date(),
-      };
-      updateBlog(updatedBlog);
-      setLastSaved(new Date());
-    }, 500),
-    [updateBlog]
-  );
-
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -70,9 +55,15 @@ export function BlogEditor({ blogId }: { blogId: string }) {
     content: "",
     editable: true,
     autofocus: false,
-    onUpdate: ({ editor }) => {
+    onBlur: ({ editor }) => {
       if (blog) {
-        debouncedUpdate(editor, blog);
+        const updatedBlog = {
+          ...blog,
+          content: editor.getHTML(),
+          updatedAt: new Date(),
+        };
+        updateBlog(updatedBlog);
+        setLastSaved(new Date());
       }
     },
   });

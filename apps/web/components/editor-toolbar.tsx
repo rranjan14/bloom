@@ -131,7 +131,7 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
   };
 
   return (
-    <div className="p-2 flex flex-wrap gap-1 items-center bg-muted/20">
+    <div className="p-2 flex flex-wrap gap-1 items-center bg-surface-a10/20">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="h-8 gap-1 px-2 text-sm">
@@ -139,7 +139,10 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
             <span className="sr-only">Select heading</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent
+          align="start"
+          className="border-surface-a20 bg-surface-a20"
+        >
           <DropdownMenuItem
             onClick={() => editor.chain().focus().setParagraph().run()}
           >
@@ -176,6 +179,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("bold")}
         onPressedChange={() => editor.chain().focus().toggleBold().run()}
         aria-label="Bold"
+        variant={editor.isActive("bold") ? "outline" : "default"}
+        className={editor.isActive("bold") ? "bg-surface-a10" : ""}
       >
         <Bold className="h-4 w-4" />
       </Toggle>
@@ -184,6 +189,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("italic")}
         onPressedChange={() => editor.chain().focus().toggleItalic().run()}
         aria-label="Italic"
+        variant={editor.isActive("italic") ? "outline" : "default"}
+        className={editor.isActive("italic") ? "bg-surface-a10" : ""}
       >
         <Italic className="h-4 w-4" />
       </Toggle>
@@ -192,6 +199,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("strike")}
         onPressedChange={() => editor.chain().focus().toggleStrike().run()}
         aria-label="Strikethrough"
+        variant={editor.isActive("strike") ? "outline" : "default"}
+        className={editor.isActive("strike") ? "bg-surface-a10" : ""}
       >
         <Strikethrough className="h-4 w-4" />
       </Toggle>
@@ -203,6 +212,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("bulletList")}
         onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
         aria-label="Bullet List"
+        variant={editor.isActive("bulletList") ? "outline" : "default"}
+        className={editor.isActive("bulletList") ? "bg-surface-a10" : ""}
       >
         <List className="h-4 w-4" />
       </Toggle>
@@ -211,6 +222,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("orderedList")}
         onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
         aria-label="Ordered List"
+        variant={editor.isActive("orderedList") ? "outline" : "default"}
+        className={editor.isActive("orderedList") ? "bg-surface-a10" : ""}
       >
         <ListOrdered className="h-4 w-4" />
       </Toggle>
@@ -222,6 +235,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("blockquote")}
         onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
         aria-label="Blockquote"
+        variant={editor.isActive("blockquote") ? "outline" : "default"}
+        className={editor.isActive("blockquote") ? "bg-surface-a10" : ""}
       >
         <Quote className="h-4 w-4" />
       </Toggle>
@@ -230,6 +245,8 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         pressed={editor.isActive("codeBlock")}
         onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
         aria-label="Code Block"
+        variant={editor.isActive("codeBlock") ? "outline" : "default"}
+        className={editor.isActive("codeBlock") ? "bg-surface-a10" : ""}
       >
         <Code className="h-4 w-4" />
       </Toggle>
@@ -243,7 +260,10 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
             <span className="sr-only">Text alignment</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent
+          align="start"
+          className="border-surface-a20 bg-surface-a20"
+        >
           <DropdownMenuItem>
             <AlignLeft className="h-4 w-4 mr-2" />
             <span>Align left</span>
@@ -263,27 +283,24 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-        <Link className="h-4 w-4" />
-        <span className="sr-only">Insert link</span>
-      </Button>
-
-      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-        <Image className="h-4 w-4" />
-        <span className="sr-only">Insert image</span>
-      </Button>
-
       <Separator orientation="vertical" className="mx-1 h-6" />
 
       {/* AI Features */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-8 gap-1 px-2 text-sm">
+          <Button
+            variant="default"
+            size="sm"
+            className="h-8 gap-1 px-2 text-sm"
+          >
             <Sparkles className="h-4 w-4 mr-1" />
             AI Assist
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent
+          align="start"
+          className="border-surface-a20 bg-surface-a20"
+        >
           <DropdownMenuItem onClick={() => handleAiAction("generate-outline")}>
             <Lightbulb className="h-4 w-4 mr-2" />
             Generate Outline
@@ -314,7 +331,7 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
             Custom AI
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="min-w-80 max-w-96 border-surface-a20 bg-surface-a20">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="ai-prompt">Ask AI to generate content</Label>

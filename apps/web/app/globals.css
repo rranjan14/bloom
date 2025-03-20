@@ -69,6 +69,10 @@
   @apply text-surface-tonal-a40 content-[attr(data-placeholder)] float-left pointer-events-none h-0;
 }
 
+.ProseMirror strong {
+  @apply font-bold text-primary-a20;
+}
+
 .ProseMirror h1 {
   @apply text-3xl leading-9 font-bold mt-6 mb-4 text-primary-a20;
 }

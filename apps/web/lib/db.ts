@@ -1,5 +1,6 @@
 import { openDB, type DBSchema, type IDBPDatabase } from "idb"
 import type { Blog, Workspace } from "./types"
+import { generateMultipleBlogs } from "./ai"
 
 interface BlogDB extends DBSchema {
   workspaces: {
@@ -17,6 +18,7 @@ interface BlogDB extends DBSchema {
 const DB_NAME = "blog-writer-db"
 const DB_VERSION = 1
 
+let dbInitialized = false
 let db: IDBPDatabase<BlogDB> | null = null
 
 export async function initializeDatabase(): Promise<IDBPDatabase<BlogDB>> {
@@ -47,6 +49,33 @@ export async function initializeDatabase(): Promise<IDBPDatabase<BlogDB>> {
       workspacesStore.put(defaultWorkspace)
     },
   })
+
+  // Only add blogs once during the first initialization
+  if (!dbInitialized) {
+    const blogsCount = (await db.getAll("blogs")).length
+    if (blogsCount === 0) {
+      const randomBlogs = await generateMultipleBlogs(2)
+      const tx = db.transaction("blogs", "readwrite")
+      try {
+        for (const blog of randomBlogs.slice(0, 2)) {
+          const newBlog = {
+            id: crypto.randomUUID(),
+            title: blog.title,
+            content: blog.content,
+            workspaceId: "default",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          }
+          await tx.store.put(newBlog)
+        }
+        await tx.done
+      } catch (error) {
+        console.error("Error adding initial blogs:", error)
+        tx.abort()
+      }
+    }
+    dbInitialized = true
+  }
 
   return db
 }
