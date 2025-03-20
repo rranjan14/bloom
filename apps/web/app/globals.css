@@ -62,7 +62,7 @@
 }
 
 .ProseMirror {
-  @apply min-h-[300px] p-4 outline-none bg-surface-a0;
+  @apply min-h-full p-4 outline-none bg-surface-a0;
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
