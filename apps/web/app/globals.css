@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --dark-a0: 0 0% 0%;
+    --light-a0: 0 0% 100%;
+
+    --primary-a0: 21 96% 40%;
+    --primary-a10: 21 74% 43%;
+    --primary-a20: 21 61% 45%;
+    --primary-a30: 21 52% 46%;
+    --primary-a40: 21 45% 48%;
+    --primary-a50: 21 34% 49%;
+
+    --surface-a0: 0 0% 97%;
+    --surface-a10: 0 0% 91%;
+    --surface-a20: 0 0% 86%;
+    --surface-a30: 0 0% 81%;
+    --surface-a40: 0 0% 75%;
+    --surface-a50: 0 0% 70%;
+
+    --surface-tonal-a0: 20 50% 92%;
+
+    --surface-tonal-a10: 20 24% 87%;
+    --surface-tonal-a20: 20 18% 82%;
+    --surface-tonal-a30: 20 13% 78%;
+    --surface-tonal-a40: 20 8% 73%;
+    --surface-tonal-a50: 20 5% 68%;
+  }
+
+  .dark {
+    /** Base colors */
+    --dark-a0: 0 0% 0%;
+    --light-a0: 0 0% 100%;
+
+    /** Theme primary colors */
+    --primary-a0: 21 92% 40%;
+    --primary-a10: 21 67% 49%;
+    --primary-a20: 21 64% 56%;
+    --primary-a30: 21 62% 62%;
+    --primary-a40: 21 65% 69%;
+    --primary-a50: 21 71% 75%;
+
+    /** Theme surface colors */
+    --surface-a0: 0 0% 7%;
+    --surface-a10: 0 0% 16%;
+    --surface-a20: 0 0% 25%;
+    --surface-a30: 0 0% 34%;
+    --surface-a40: 0 0% 44%;
+    --surface-a50: 0 0% 55%;
+
+    /** Theme tonal surface colors */
+    --surface-tonal-a0: 20 29% 11%;
+    --surface-tonal-a10: 20 16% 19%;
+    --surface-tonal-a20: 20 11% 28%;
+    --surface-tonal-a30: 20 8% 37%;
+    --surface-tonal-a40: 20 6% 47%;
+    --surface-tonal-a50: 20 4% 57%;
+  }
+}
+
+.ProseMirror {
+  @apply min-h-[300px] p-4 outline-none bg-surface-a0;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-surface-tonal-a40 content-[attr(data-placeholder)] float-left pointer-events-none h-0;
+}
+
+.ProseMirror h1 {
+  @apply text-3xl leading-9 font-bold mt-6 mb-4 text-primary-a20;
+}
+
+.ProseMirror h2 {
+  @apply text-2xl leading-8 font-bold mt-5 mb-3 text-primary-a20;
+}
+
+.ProseMirror h3 {
+  @apply text-xl leading-7 font-bold mt-4 mb-2 text-primary-a20;
+}
+
+.ProseMirror p {
+  @apply my-2 text-primary-a20;
+}
+
+.ProseMirror ul {
+  @apply list-disc pl-6 my-3 text-surface-tonal-a50;
+}
+
+.ProseMirror ol {
+  @apply list-decimal pl-6 my-3 text-surface-tonal-a50;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-surface-tonal-a20 pl-4 italic my-4 text-surface-tonal-a40;
+}
+
+.ProseMirror code {
+  @apply bg-surface-a10 px-1.5 py-0.5 rounded text-sm leading-5 text-primary-a20;
+}
+
+.ProseMirror pre {
+  @apply bg-surface-a10 p-4 rounded-md my-4 overflow-x-auto text-surface-tonal-a50;
+}
+
+.ProseMirror a {
+  @apply text-primary-a20 underline hover:text-primary-a20;
+}
